@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import { createGlobalStyle } from 'styled-components';
+import WelcomeComponent from './components/WelcomeComponent';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -18,6 +19,7 @@ export default function App() {
         <div className="App">
             <GlobalStyles />
             <Header />
+            <WelcomeComponent />
         </div>
     );
 }

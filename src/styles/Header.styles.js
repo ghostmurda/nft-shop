@@ -3,10 +3,12 @@ import styled from 'styled-components';
 export const HeaderWrapper = styled.div`
     width: 100%;
     height: 80px;
-    box-shadow: 0px 5px 32px -10px rgba(34, 60, 80, 0.6);
+    box-shadow: 0px 5px 32px -10px rgba(34, 60, 80, 0.3);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
+    z-index: 10;
 `;
 
 export const HeaderTitle = styled.span`font-size: 25px;`;
