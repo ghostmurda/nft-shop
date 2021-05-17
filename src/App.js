@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './components/Header';
 import { createGlobalStyle } from 'styled-components';
 import WelcomeComponent from './components/WelcomeComponent';
+import Marketplace from './components/Marketplace';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -20,6 +21,7 @@ export default function App() {
             <GlobalStyles />
             <Header />
             <WelcomeComponent />
+            <Marketplace />
         </div>
     );
 }

@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
     background-image: url('https://papers.co/wallpaper/papers.co-sl96-soft-blue-pastel-blur-gradation-36-3840x2400-4k-wallpaper.jpg');
     background-position: center;
     background-size: contain;
+    box-shadow: 0px 5px 32px -10px rgba(34, 60, 80, 0.3);
 `;
 
 export const WelcomeWrapper = styled.div`

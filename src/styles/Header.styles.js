@@ -7,7 +7,9 @@ export const HeaderWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    position: sticky;
+    background: white;
+    top: 0;
     z-index: 10;
 `;
 
