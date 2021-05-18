@@ -20,15 +20,38 @@ export const getTokenData = async (url) => {
     }
 }
 
-export const postToken = async (contract) => {
+export const postToken = async (contract, userId) => {
     try {
         const tokenData = await getRinkebyData(contract, 0);
+        if (!tokenData) {
+            throw new Error('Error');
+        }
+        if (!tokenData.valid) {
+            throw new Error('Token not valid');
+        }
+
         const tokenUri = tokenData.token_uri;
-        await axios.post(`${SERVER_URL}/tokens`, {
-            name: 'ghostmurda',
+
+        const response = await axios.post(`${SERVER_URL}/tokens`, {
+            uid: userId,
             contract,
             uri: tokenUri
         });
+
+        return response;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const postTokenToAccount = async (contract, userId) => {
+    try {
+        const response = await axios.post(`${SERVER_URL}/account`, {
+            uid: userId,
+            contract
+        });
+
+        return response;
     } catch (err) {
         console.error(err);
     }
