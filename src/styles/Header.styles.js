@@ -13,7 +13,13 @@ export const HeaderWrapper = styled.div`
     z-index: 10;
 `;
 
-export const HeaderTitle = styled.span`font-size: 25px;`;
+export const HeaderTitle = styled.span`
+    font-size: 25px;
+    & a{
+        text-decoration: none;
+        color: black;
+    }
+`;
 
 export const LogoWrapper = styled.div`
     width: 200px;

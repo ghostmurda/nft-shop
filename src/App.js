@@ -3,6 +3,8 @@ import Header from './components/Header';
 import { createGlobalStyle } from 'styled-components';
 import WelcomeComponent from './components/WelcomeComponent';
 import Marketplace from './components/Marketplace';
+import { BrowserRouter, Route } from 'react-router-dom';
+import ItemPage from './components/ItemPage';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -19,9 +21,22 @@ export default function App() {
     return (
         <div className="App">
             <GlobalStyles />
-            <Header />
-            <WelcomeComponent />
-            <Marketplace />
+            <BrowserRouter>
+                <Header />
+                <Route
+                    exact
+                    path="/"
+                    render={() =>
+                        <div>
+                            <WelcomeComponent />
+                            <Marketplace />
+                        </div>}
+                />
+                <Route
+                    path="/([a-z0-9A-Z_-]{3,50})"
+                    render={() => <ItemPage />}
+                />
+            </BrowserRouter>
         </div>
     );
 }

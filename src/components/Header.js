@@ -10,6 +10,7 @@ import logo from '../media/logo.png';
 import { Button, Fab, Menu, MenuItem, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     const [isMenu, setIsMenu] = useState(false);
@@ -24,7 +25,9 @@ export default function Header() {
         <HeaderWrapper>
             <LogoWrapper>
                 <img src={logo} alt="logo" width="48" />
-                <HeaderTitle>NFT Shop</HeaderTitle>
+                <HeaderTitle>
+                    <Link to="/">NFT Shop</Link>
+                </HeaderTitle>
             </LogoWrapper>
             <SearchWrapper>
                 <TextField

@@ -1,5 +1,5 @@
 import React from 'react';
-import testNftImg from '../media/test-nft.jpg';
+import testNftImg from '../media/test-nft-2.jpg';
 import {
     Card,
     CardActionArea,
