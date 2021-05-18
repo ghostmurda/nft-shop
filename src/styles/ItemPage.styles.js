@@ -27,3 +27,10 @@ export const UserOfferPaperContainer = styled.div`
     display: flex;
     justify-content: space-between;
 `;
+
+export const ErrorDisplay = styled.div`
+    width: 100%;
+    margin-top: 32px;
+    font-size: 30px;
+    text-align: center;
+`;

@@ -27,7 +27,7 @@ export const WelcomeTitle = styled.div`
 
 export const ButtonsWrapper = styled.div`
     margin-top: 16px;
-    width: 55%;
+    width: 80%;
     height: 50px;
     display: flex;
     justify-content: space-between;

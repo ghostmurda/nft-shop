@@ -1,10 +1,10 @@
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@material-ui/core';
 import React from 'react';
 import { FilterWrapper, MarketItemsWrapper, MarketplaceWrapper } from '../styles/Marketplace.styles';
-import MarketItem from './MarketItem';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MarketItemContainer from '../containers/MarketItemContainer';
 
-export default function Marketplace() {
+export default function Marketplace({marketItems}) {
     return (
         <MarketplaceWrapper>
             <FilterWrapper>
@@ -26,12 +26,7 @@ export default function Marketplace() {
                 </Accordion>
             </FilterWrapper>
             <MarketItemsWrapper>
-                <MarketItem />
-                <MarketItem />
-                <MarketItem />
-                <MarketItem />
-                <MarketItem />
-                <MarketItem />
+                {marketItems && marketItems.map((item, i) => <MarketItemContainer key={i} {...item} />)}
             </MarketItemsWrapper>
         </MarketplaceWrapper>
     );

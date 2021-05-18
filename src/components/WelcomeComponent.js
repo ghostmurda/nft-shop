@@ -28,7 +28,7 @@ export default function WelcomeComponent() {
                             Маркет
                         </Button>
                         <Button variant="outlined" color="primary">
-                            Найти
+                            Добавить токен
                         </Button>
                     </ButtonsWrapper>
                 </div>

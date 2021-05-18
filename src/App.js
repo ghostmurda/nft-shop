@@ -2,9 +2,9 @@ import React from 'react';
 import Header from './components/Header';
 import { createGlobalStyle } from 'styled-components';
 import WelcomeComponent from './components/WelcomeComponent';
-import Marketplace from './components/Marketplace';
 import { BrowserRouter, Route } from 'react-router-dom';
 import ItemPage from './components/ItemPage';
+import MarketplaceContainer from './containers/MarketplaceContainer';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -29,7 +29,7 @@ export default function App() {
                     render={() =>
                         <div>
                             <WelcomeComponent />
-                            <Marketplace />
+                            <MarketplaceContainer />
                         </div>}
                 />
                 <Route

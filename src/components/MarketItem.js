@@ -1,5 +1,4 @@
 import React from 'react';
-import testNftImg from '../media/test-nft-2.jpg';
 import {
     Card,
     CardActionArea,
@@ -9,20 +8,20 @@ import {
 } from '@material-ui/core';
 import { ItemWrapper } from '../styles/Marketplace.styles';
 
-export default function MarketItem() {
+export default function MarketItem({image, name, openItemPage}) {
     return (
-        <ItemWrapper>
+        <ItemWrapper onClick={openItemPage}>
             <Card style={{borderRadius: 10}} elevation={2}>
                 <CardActionArea>
                     <CardMedia
                         component="img"
                         alt="nft"
                         height="300"
-                        image={testNftImg}
+                        image={image}
                         title="nft"
                     />
                     <CardContent>
-                        <Typography gutterBottom>Test NFT тестовый</Typography>
+                        <Typography gutterBottom>{name}</Typography>
                         <Typography variant="body2" color="textSecondary">12 ETH</Typography>
                     </CardContent>
                 </CardActionArea>

@@ -10,7 +10,7 @@ export const MarketItemsWrapper = styled.div`
 `;
 
 export const ItemWrapper = styled.div`
-    max-width: 246px;
+    width: 246px;
     padding: 16px;
     border-radius: 10;
 `;
