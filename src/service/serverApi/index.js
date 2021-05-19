@@ -56,3 +56,38 @@ export const postTokenToAccount = async (contract, userId) => {
         console.error(err);
     }
 }
+
+export const getTokenDataAddedBy = async (contract) => {
+    try {
+        const response = await axios.get(`${SERVER_URL}/tokens?contract=${contract}`)
+        return response.data.added_by;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const postUserData = async (avatar, uid, userName) => {
+    try {
+        const response = axios.post(`${SERVER_URL}/account/userData`, {
+            avatar,
+            userName,
+            uid
+        });
+
+        return response;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const getUserData = async (uid) => {
+    try {
+        const response = await axios.get(`${SERVER_URL}/account?uid=${uid}`)
+        if (response.data.status === 404 || response.data.status === 400) {
+            throw new Error('Error');
+        }
+        return response.data;
+    } catch (err) {
+        console.error(err);
+    }
+}

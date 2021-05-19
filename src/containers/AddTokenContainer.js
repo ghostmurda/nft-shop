@@ -33,7 +33,7 @@ export default function AddTokenContainer() {
         if (inputValue && isLoggedIn) {
             const response = await postToken(inputValue, userId);
             
-            if (response?.status == 202) {
+            if (response?.status === 202) {
                 await postTokenToAccount(inputValue, userId);
                 setSuccess(true);
                 setInProgress(false);

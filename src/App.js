@@ -3,8 +3,9 @@ import Header from './components/Header';
 import { createGlobalStyle } from 'styled-components';
 import WelcomeComponent from './components/WelcomeComponent';
 import { BrowserRouter, Route } from 'react-router-dom';
-import ItemPage from './components/ItemPage';
+import ItemPageContainer from './containers/ItemPageContainer';
 import MarketplaceContainer from './containers/MarketplaceContainer';
+import UserPageConteiner from './containers/UserPageContainer';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -33,8 +34,13 @@ export default function App() {
                         </div>}
                 />
                 <Route
+                    exact
                     path="/([a-z0-9A-Z_-]{3,50})"
-                    render={() => <ItemPage />}
+                    render={() => <ItemPageContainer />}
+                />
+                <Route
+                    path="/user/:userId"
+                    render={() => <UserPageConteiner />}
                 />
             </BrowserRouter>
         </div>

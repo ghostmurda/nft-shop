@@ -4,6 +4,7 @@ import { Avatar, Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import accountActions from "../store/account/actions";
 import { getAvatar, getIsLoggedIn, getName } from "../store/account/selectors";
+import { postUserData } from "../service/serverApi";
 
 export default function LoginContainer() {
     const dispatch = useDispatch();
@@ -31,6 +32,8 @@ export default function LoginContainer() {
 
                 const token = await auth?.currentUser?.getIdToken(true);
                 token && localStorage.setItem("@token", token);
+
+                await postUserData(data.photoURL, data.uid, data.displayName);
             },
             function (error) {
                 console.log(error);

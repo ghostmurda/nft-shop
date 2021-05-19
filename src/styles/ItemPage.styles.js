@@ -11,6 +11,12 @@ export const ItemCharacteristics = styled.div`
     margin-left: 32px;
 `;
 
+export const ItemTitleWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+`;
+
 export const ItemTitle = styled.div`
     font-size: 25px;
     margin-bottom: 32px;
@@ -33,4 +39,10 @@ export const ErrorDisplay = styled.div`
     margin-top: 32px;
     font-size: 30px;
     text-align: center;
+`;
+
+export const LoadingWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
 `;
