@@ -9,23 +9,38 @@ import {
     LoadingWrapper,
     UserOfferPaperContainer,
 } from '../styles/ItemPage.styles';
-import { Button, Card, CardMedia, CircularProgress, Paper, Typography } from '@material-ui/core';
+import { Button, Card, CardMedia, CircularProgress, Paper, Snackbar, TextField, Typography } from '@material-ui/core';
 import { getTokenDataByRinkeby } from '../service/rinkebyApi';
 import { useLocation } from 'react-router';
-import { getTokenDataAddedBy, getUserData } from '../service/serverApi';
+import { getFirebaseTokenData, getUserData, postOffer } from '../service/serverApi';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getIsLoggedIn, getUserId } from '../store/account/selectors';
+import moment from "moment";
 
 export default function ItemPageContainer() {
     const [data, setData] = useState(null);
     const [isError, setError] = useState(false);
     const [userId, setUserId] = useState();
+    const [inputValue, setInputValue] = useState('');
+    const [isSuccess, setSuccess] = useState(false);
+    const [offers, setOffers] = useState();
 
     const currentToken = useLocation();
+    const { isLoggedIn, currentUserId } = useSelector(state => {
+        return {
+            isLoggedIn: getIsLoggedIn(state),
+            currentUserId: getUserId(state),
+        };
+    });
 
     useEffect(() => {
         const asyncFunc = async () => {
             const tokenData = await getTokenDataByRinkeby(currentToken.pathname, 0);
             if (tokenData) {
-                const tokenAddedById = await getTokenDataAddedBy(currentToken.pathname);
+                const firebaseTokenData = await getFirebaseTokenData(currentToken.pathname);
+                const tokenAddedById = firebaseTokenData.added_by;
+
                 const addedByUser = await getUserData(tokenAddedById);
                 const addedByName = addedByUser.userName;
 
@@ -36,7 +51,8 @@ export default function ItemPageContainer() {
                     desc: tokenData.description,
                     addedBy: addedByName ? addedByName : tokenAddedById
                 });
-
+                setOffers(firebaseTokenData.offers);
+                setInputValue(tokenData.price);
                 setUserId(tokenAddedById);
             } else {
                 setError(true);
@@ -44,7 +60,23 @@ export default function ItemPageContainer() {
         }
         asyncFunc();
         return () => asyncFunc;
-    }, []);
+    }, [isSuccess]);
+
+    const inputHandler = (e) => {
+        setInputValue(e.currentTarget.value);
+    }
+
+    const makeOffer = async () => {
+        if (isLoggedIn) {
+            const response = await postOffer(currentToken.pathname, {
+                uid: currentUserId,
+                date: new Date(),
+                price: inputValue
+            });
+
+            response == 'Accepted' && setSuccess(true);
+        }
+    }
 
     return (
         <ItemPageWrapper>
@@ -72,7 +104,7 @@ export default function ItemPageContainer() {
                         {data?.name}
                     </ItemTitle>
                     <Typography color="textSecondary">
-                        Добавил {data?.addedBy}
+                        Добавил <Link to={`/user/${userId}`}>{data?.addedBy}</Link>
                     </Typography>
                 </ItemTitleWrapper>
                 <Paper
@@ -90,9 +122,23 @@ export default function ItemPageContainer() {
                         <Typography variant="h5" component="h2" gutterBottom>
                             {data?.price}
                         </Typography>
-                        <Button color="primary" variant="contained">
-                            Сделать предложение
-                        </Button>
+                        <div>
+                            <TextField 
+                                variant="outlined"
+                                style={{maxWidth: 96}}
+                                onChange={inputHandler}
+                                value={inputValue}
+                            />
+                            <Button 
+                                disabled={!isLoggedIn}
+                                color="primary" 
+                                variant="contained"
+                                onClick={makeOffer}
+                                style={{height: 56, marginLeft: 16}}
+                            >
+                                Сделать предложение
+                            </Button>
+                        </div>
                     </ItemPaperContainer>
                 </Paper>
                 <Paper
@@ -128,15 +174,25 @@ export default function ItemPageContainer() {
                             variant="outlined"
                             style={{ width: 668, marginTop: 16 }}
                         >
-                            <UserOfferPaperContainer>
-                                <Typography>18.05.2021</Typography>
-                                <Typography>User name</Typography>
-                                <Typography>12 ETH</Typography>
-                            </UserOfferPaperContainer>
+                            {offers && offers.map((item, i) => {
+                                return (
+                                    <UserOfferPaperContainer key={i}>
+                                        <Typography>{moment(item.date).format('L')}</Typography>
+                                        <Typography>{item.uid}</Typography>
+                                        <Typography>{item.price}</Typography>
+                                    </UserOfferPaperContainer>
+                                );
+                            })}
                         </Paper>
                     </ItemPaperContainer>
                 </Paper>
             </ItemCharacteristics></>}
+            <Snackbar 
+                open={isSuccess} 
+                autoHideDuration={3000} 
+                onClose={() => setSuccess(false)}
+                message="Предложение сделано"
+            />
         </ItemPageWrapper>
     );
 }

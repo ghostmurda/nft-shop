@@ -57,10 +57,10 @@ export const postTokenToAccount = async (contract, userId) => {
     }
 }
 
-export const getTokenDataAddedBy = async (contract) => {
+export const getFirebaseTokenData = async (contract) => {
     try {
         const response = await axios.get(`${SERVER_URL}/tokens?contract=${contract}`)
-        return response.data.added_by;
+        return response.data;
     } catch (err) {
         console.error(err);
     }
@@ -86,6 +86,19 @@ export const getUserData = async (uid) => {
         if (response.data.status === 404 || response.data.status === 400) {
             throw new Error('Error');
         }
+        return response.data;
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export const postOffer = async (contract, offer) => {
+    try {
+        const response = await axios.post(`${SERVER_URL}/tokens/addOffer`, {
+            contract,
+            offer
+        })
+        
         return response.data;
     } catch (err) {
         console.error(err);
